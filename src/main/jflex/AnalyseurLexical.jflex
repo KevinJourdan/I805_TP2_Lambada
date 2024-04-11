@@ -36,14 +36,16 @@ nil         = "nil" | "NIL"
 not         = "not" | "NOT"
 and         = "and" | "AND"
 or          = "or" | "OR"
+true        = "true" | "TRUE"
+false        = "false" | "FALSE"
 
 // un identifiant commence par une lettre suivit d'un charactere alphanumerique (lettre/chiffre/underscore)
 ident       = [:letter:]\w*
 comment1    = "//".*                            // commentaire uniligne
 comment2    = "/*"([^*]|("*"+[^/*]))*"*"+"/"    // commentaire multiligne
-comment     = {comment1}|{comment2}    
+comment     = {comment1}|{comment2}
 
-%% 
+%%
 /* ------------------------Section des Regles Lexicales----------------------*/
 
 /* regles */
@@ -52,17 +54,23 @@ comment     = {comment1}|{comment2}
 {while}     { return new Symbol(sym.WHILE, yyline, yycolumn) ;}
 {do}        { return new Symbol(sym.DO, yyline, yycolumn) ;}
 {if}        { return new Symbol(sym.IF, yyline, yycolumn) ;}
+"?"         { return new Symbol(sym.IFTERN, yyline, yycolumn) ;}
+":"         { return new Symbol(sym.ELSETERN, yyline, yycolumn) ;}
 {then}      { return new Symbol(sym.THEN, yyline, yycolumn) ;}
 {else}      { return new Symbol(sym.ELSE, yyline, yycolumn) ;}
 {nil}       { return new Symbol(sym.NIL, yyline, yycolumn) ;}
 {input}     { return new Symbol(sym.INPUT, yyline, yycolumn) ;}
 {output}    { return new Symbol(sym.OUTPUT, yyline, yycolumn) ;}
+{true}      { return new Symbol(sym.TRUE, yyline, yycolumn) ;}
+{false}     { return new Symbol(sym.FALSE, yyline, yycolumn) ;}
 {and}       { return new Symbol(sym.AND, yyline, yycolumn) ;}
 {or}        { return new Symbol(sym.OR, yyline, yycolumn) ;}
 {not}       { return new Symbol(sym.NOT, yyline, yycolumn) ;}
 "="         { return new Symbol(sym.EGAL, yyline, yycolumn) ;}
-"<"         { return new Symbol(sym.GT, yyline, yycolumn) ;}
-"<="        { return new Symbol(sym.GTE, yyline, yycolumn) ;}
+">"         { return new Symbol(sym.GT, yyline, yycolumn) ;}
+">="        { return new Symbol(sym.GTE, yyline, yycolumn) ;}
+"<"         { return new Symbol(sym.LT, yyline, yycolumn) ;}
+"<="        { return new Symbol(sym.LTE, yyline, yycolumn) ;}
 "("         { return new Symbol(sym.PAR_G, yyline, yycolumn) ;}
 ")"         { return new Symbol(sym.PAR_D, yyline, yycolumn) ;}
 "+"         { return new Symbol(sym.PLUS, yyline, yycolumn) ;}
